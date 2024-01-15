@@ -22,8 +22,7 @@ public class ListeTriee{
      * @return tete de liste
      */
     public int tete(){
-	//A COMPLETER
-	throw (new error ("A compléter"));
+	return this.liste.tete();
     }
 	
     /**
@@ -32,8 +31,7 @@ public class ListeTriee{
      * @return place derriere p dans la liste
      */
     public int suc(int p){
-	//A COMPLETER
-	throw (new error ("A compléter"));
+	return this.liste.suc(p);
     }
     
     /**
@@ -43,7 +41,7 @@ public class ListeTriee{
      */
     public String val(int p){
 	//A COMPLETER
-	throw (new error ("A compléter"));
+	return this.liste.val(p);
     }
  
     /**
@@ -53,7 +51,7 @@ public class ListeTriee{
      */   
     public boolean finliste(int p){
 	//A COMPLETER
-	throw (new error ("A compléter"));
+        return this.liste.finliste(p);
     }
 	
     
@@ -63,7 +61,29 @@ public class ListeTriee{
      */
     public void adjlisT(String chaine){
 	//A COMPLETER
-	throw (new error ("A compléter"));
+        //Ajouter liste triée
+        //Si la liste est vide on met direct
+        //Si la comparaison retourne > 0 alors on continue d'avancer jusqu'à la fin de la liste
+        //Sinon si on arrive a < 0 alors on ajoute a -1
+            if(this.finliste(this.tete()) == true){
+            this.liste.adjlis(this.tete(), chaine);
+        }else{
+            int i = 0;
+            int precedent = 0;
+            while(chaine.compareTo(this.val(i)) > 0 && this.finliste(i) == false){
+                if(i <= this.tete()){
+                    precedent = i;
+                }
+                i = this.suc(i);
+
+
+            }
+            if(this.finliste(i) == true){
+                this.liste.adjlis(i,chaine);
+            }else {
+                this.liste.adjlis(precedent, chaine);
+            }
+        }
     }
 	
     /**
@@ -72,7 +92,7 @@ public class ListeTriee{
      */
     public void suplisT(String chaine){
 	//A COMPLETER
-	throw (new error ("A compléter"));
+	throw (new Error ("A compléter"));
     }
 		
     public String toString(){
