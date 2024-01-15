@@ -22,8 +22,13 @@ public class ListeChaineePlacesLibres implements Liste {
      * @param taillemax de la liste
      */
     public ListeChaineePlacesLibres(int tMax) {
-	//A COMPLETER
-	throw (new error ("A compléter"));
+	this.tab = new MaillonChaine[tMax];
+    this.tete = -1;
+    this.teteLibre = 0;
+    for (int i = 0; i < tab.length-1; i++){
+        this.tab[i] = new MaillonChaine(null, i+1);
+    }
+    this.tab[this.tab.length-1] = new MaillonChaine(null, -1);
     }
 
     /**
@@ -93,7 +98,8 @@ public class ListeChaineePlacesLibres implements Liste {
      */
     private void libererPlace(int p) {
 	//A COMPLETER
-	throw (new error ("A compléter"));
+        this.tab[p].setSuc(this.teteLibre);
+	    this.teteLibre = p;
     }
 
     /**
@@ -130,7 +136,12 @@ public class ListeChaineePlacesLibres implements Liste {
      */
     public int retournerPlaceLibre() {
 	//A COMPLETER
-	throw (new error ("A compléter"));
+        int PL = -2;
+        if(this.teteLibre != -2){
+            PL = this.teteLibre;
+            this.teteLibre = this.suc(teteLibre);
+        }
+        return PL;
     }
     
 	
