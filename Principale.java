@@ -37,21 +37,26 @@ public class Principale{
     private static final int CHAINEE	       = 2;
     private static final int CHAINEE_PLIBRES   = 3;
 
-	public static long tempListe(int code, String[] tab,char operation){
+	public static String tempListe(int code, String[] tab,char operation,int taille){
 		ListeTriee lt;
+		String typeListe = "";
 		switch(code){
 			case 1:
-				ListeContigue listeCon = new ListeContigue(tab.length);
+				ListeContigue listeCon = new ListeContigue(taille);
 				lt = new ListeTriee(listeCon);
+				typeListe = "Contigue";
 				break;
 			case 2:
-				ListeChainee listeChainee = new ListeChainee(tab.length);
+				ListeChainee listeChainee = new ListeChainee(taille);
 				lt = new ListeTriee(listeChainee);
+				typeListe = "Chainee";
 				break;
 			default:
-				ListeChaineePlacesLibres listeChaineePL = new ListeChaineePlacesLibres(tab.length);
+				ListeChaineePlacesLibres listeChaineePL = new ListeChaineePlacesLibres(taille);
 				lt = new ListeTriee(listeChaineePL);
+				typeListe = "Chainee avec place libre";
 		}
+		remplir_liste(lt,"noms10000.txt");
 		long date_debut;
 		long date_fin;
 		if(operation == '-'){
@@ -68,7 +73,8 @@ public class Principale{
 			date_fin = System.nanoTime() ;
 
 		}
-        return date_fin - date_debut;
+		long duree = date_fin - date_debut;
+        return typeListe + ";" + operation + ";" + duree;
 	}
 
 
@@ -89,21 +95,40 @@ public class Principale{
 	//Exemple d'utilisation de la classe EcritureFichier
 	EcritureFichier fichier = new EcritureFichier("resultats.csv");
 	fichier.ouvrirFichier();
-	fichier.ecrireLigne("liste;operation;emplacement;duree");
+	fichier.ecrireLigne("type liste;operation;emplacement;duree");
 	fichier.fermerFichier();
 
 	//###################################################################
 		// Ouverture du fichier
-		LectureFichier lf = new LectureFichier("noms10000.txt");
+		//LectureFichier lf = new LectureFichier("noms10000.txt");
 		// lecture du fichier dans un tableau de String
-		String[] tab = lf.lireFichier();
+		//String[] tab = lf.lireFichier();
 		// creation d'une liste chainee
-		ListeChainee lc = new ListeChainee(10000);
+		//ListeChainee lc = new ListeChainee(10000);
 		// creation d'une liste triee
-		ListeTriee lt = new ListeTriee(lc);
+		//ListeTriee lt = new ListeTriee(lc);
 		// ajout des lignes du fichier a la liste
-		System.out.println(tempListe(1,ELEMENTS_DE_DEBUT,'+'));
-		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'-'));
-		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'+'));
+
+		//Question 7
+		fichier.ouvrirFichier();
+		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_DEBUT,'+',10010));
+		fichier.fermerFichier();
+		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'+',10010));
+		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'+',10010));
+
+		//Question 8
+		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'+',10010));
+		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'+',10010));
+		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'+',10010));
+
+		//Question 9
+		System.out.println(tempListe(1,ELEMENTS_DE_DEBUT,'-',10010));
+		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'-',10010));
+		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'-',10010));
+
+		//Question 10
+		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'-',10010));
+		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'-',10010));
+		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'-',10010));
 	}
 }
