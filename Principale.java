@@ -37,10 +37,10 @@ public class Principale{
     private static final int CHAINEE	       = 2;
     private static final int CHAINEE_PLIBRES   = 3;
 
-	public static String tempListe(int code, String[] tab,char operation,int taille){
+	public static String tempListe(int code, String[] tab,char operation,int taille, String placement) {
 		ListeTriee lt;
 		String typeListe = "";
-		switch(code){
+		switch (code) {
 			case 1:
 				ListeContigue listeCon = new ListeContigue(taille);
 				lt = new ListeTriee(listeCon);
@@ -56,37 +56,36 @@ public class Principale{
 				lt = new ListeTriee(listeChaineePL);
 				typeListe = "Chainee avec place libre";
 		}
-		remplir_liste(lt,"noms10000.txt");
+		remplir_liste(lt, "noms10000.txt");
 		long date_debut;
 		long date_fin;
-		if(operation == '-'){
+		if (operation == '-') {
 			date_debut = System.nanoTime();
-			for(int i = 0; i < 10; i++){
+			for (int i = 0; i < 10; i++) {
 				lt.suplisT(tab[i]);
 			}
-			date_fin = System.nanoTime() ;
-		}else{
+			date_fin = System.nanoTime();
+		} else {
 			date_debut = System.nanoTime();
-			for(int i = 0; i < 10; i++){
+			for (int i = 0; i < 10; i++) {
 				lt.adjlisT(tab[i]);
 			}
-			date_fin = System.nanoTime() ;
+			date_fin = System.nanoTime();
 
 		}
 		long duree = date_fin - date_debut;
-        return typeListe + ";" + operation + ";" + duree;
+		return typeListe + ";" + operation + ";" + placement + ";" + duree;
 	}
-
 
 
     // Exemple d'utilisation de LectureFichier et remplissage d'une liste
     public static void remplir_liste(ListeTriee liste, String nom_fichier){
-	LectureFichier lf = new LectureFichier(nom_fichier);
-	// 		
-	String[] liste_noms = lf.lireFichier();
-	for (int i = 0; i < liste_noms.length; i++) {
-	    liste.adjlisT(liste_noms[i]);
-	}
+		LectureFichier lf = new LectureFichier(nom_fichier);
+		//
+		String[] liste_noms = lf.lireFichier();
+		for(int i = 0; i < liste_noms.length; i++) {
+			liste.adjlisT(liste_noms[i]);
+		}
     }
 		
     public static void main(String [] args){
@@ -111,24 +110,30 @@ public class Principale{
 
 		//Question 7
 		fichier.ouvrirFichier();
-		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_DEBUT,'+',10010));
+		fichier.ecrireLigne("Type de liste; Operation; Placement; Duree");
+		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
+		fichier.ecrireLigne(tempListe(2,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
+		fichier.ecrireLigne(tempListe(3,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
+
+
+
 		fichier.fermerFichier();
-		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'+',10010));
-		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'+',10010));
+		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
+		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
 
 		//Question 8
-		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'+',10010));
-		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'+',10010));
-		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'+',10010));
+		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'+',10010,"fin"));
+		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'+',10010,"fin"));
+		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'+',10010,"fin"));
 
 		//Question 9
-		System.out.println(tempListe(1,ELEMENTS_DE_DEBUT,'-',10010));
-		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'-',10010));
-		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'-',10010));
+		System.out.println(tempListe(1,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
+		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
+		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
 
 		//Question 10
-		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'-',10010));
-		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'-',10010));
-		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'-',10010));
+		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'-',10010,"fin"));
+		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'-',10010,"fin"));
+		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'-',10010,"fin"));
 	}
 }
