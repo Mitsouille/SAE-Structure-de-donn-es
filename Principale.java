@@ -36,7 +36,35 @@ public class Principale{
     private static final int CONTIGUE	       = 1;
     private static final int CHAINEE	       = 2;
     private static final int CHAINEE_PLIBRES   = 3;
-	
+
+	public static long tempListe(int code, int taille){
+		ListeTriee lt;
+		switch(code){
+			case 1:
+				ListeContigue listeCon = new ListeContigue(taille);
+				lt = new ListeTriee(listeCon);
+				break;
+			case 2:
+				ListeChainee listeChainee = new ListeChainee(taille);
+				lt = new ListeTriee(listeChainee);
+				break;
+			default:
+				ListeChaineePlacesLibres listeChaineePL = new ListeChaineePlacesLibres(taille);
+				lt = new ListeTriee(listeChaineePL);
+				break;
+
+		}
+		long date_debut = System.nanoTime();
+		for(int i = 0; i < 10; i++){
+			lt.adjlisT(ELEMENTS_DE_DEBUT[i]);
+		}
+		long date_fin = System.nanoTime () ;
+		long duree = date_fin - date_debut ;
+		return duree;
+	}
+
+
+
     // Exemple d'utilisation de LectureFichier et remplissage d'une liste
     public static void remplir_liste(ListeTriee liste, String nom_fichier){
 	LectureFichier lf = new LectureFichier(nom_fichier);
@@ -57,7 +85,7 @@ public class Principale{
 	fichier.fermerFichier();
 
 	//###################################################################
-// Ouverture du fichier
+		// Ouverture du fichier
 		LectureFichier lf = new LectureFichier("noms10000.txt");
 		// lecture du fichier dans un tableau de String
 		String[] tab = lf.lireFichier();
@@ -66,15 +94,6 @@ public class Principale{
 		// creation d'une liste triee
 		ListeTriee lt = new ListeTriee(lc);
 		// ajout des lignes du fichier a la liste
-
-		for (int i = 0; i < tab.length; i ++) {
-			lt.adjlisT(tab[i]);
-		}
-		// demonstration
-		System.out.println(lt.toString());
-		// suppression d'un mot de la liste
-		lt.suplisT("DROUVOT");
-		// demonstration
-		System.out.println(lt.toString());
-    }
+		System.out.println(tempListe(1,10000));
+	}
 }
