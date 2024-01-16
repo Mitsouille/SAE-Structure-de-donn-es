@@ -37,30 +37,38 @@ public class Principale{
     private static final int CHAINEE	       = 2;
     private static final int CHAINEE_PLIBRES   = 3;
 
-	public static long tempListe(int code, int taille){
+	public static long tempListe(int code, String[] tab,char operation){
 		ListeTriee lt;
 		switch(code){
 			case 1:
-				ListeContigue listeCon = new ListeContigue(taille);
+				ListeContigue listeCon = new ListeContigue(tab.length);
 				lt = new ListeTriee(listeCon);
 				break;
 			case 2:
-				ListeChainee listeChainee = new ListeChainee(taille);
+				ListeChainee listeChainee = new ListeChainee(tab.length);
 				lt = new ListeTriee(listeChainee);
 				break;
 			default:
-				ListeChaineePlacesLibres listeChaineePL = new ListeChaineePlacesLibres(taille);
+				ListeChaineePlacesLibres listeChaineePL = new ListeChaineePlacesLibres(tab.length);
 				lt = new ListeTriee(listeChaineePL);
-				break;
+		}
+		long date_debut;
+		long date_fin;
+		if(operation == '-'){
+			date_debut = System.nanoTime();
+			for(int i = 0; i < 10; i++){
+				lt.suplisT(tab[i]);
+			}
+			date_fin = System.nanoTime() ;
+		}else{
+			date_debut = System.nanoTime();
+			for(int i = 0; i < 10; i++){
+				lt.adjlisT(tab[i]);
+			}
+			date_fin = System.nanoTime() ;
 
 		}
-		long date_debut = System.nanoTime();
-		for(int i = 0; i < 10; i++){
-			lt.adjlisT(ELEMENTS_DE_DEBUT[i]);
-		}
-		long date_fin = System.nanoTime () ;
-		long duree = date_fin - date_debut ;
-		return duree;
+        return date_fin - date_debut;
 	}
 
 
@@ -94,6 +102,8 @@ public class Principale{
 		// creation d'une liste triee
 		ListeTriee lt = new ListeTriee(lc);
 		// ajout des lignes du fichier a la liste
-		System.out.println(tempListe(1,10000));
+		System.out.println(tempListe(1,ELEMENTS_DE_DEBUT,'+'));
+		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'-'));
+		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'+'));
 	}
 }
