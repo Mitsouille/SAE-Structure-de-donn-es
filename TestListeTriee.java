@@ -56,7 +56,7 @@ public class TestListeTriee {
 
 	    String[] mots= {"a","b","c"};
 	    String[] reponse= {"a","b","c"};
-	    for (int i = 0; i < mots.length; i++){
+	    for(int i = 0; i < mots.length; i++){
 		lT.adjlisT(mots[i]);
 	    }    	
 	    
@@ -73,9 +73,9 @@ public class TestListeTriee {
 	    
 	    String[] mots= {"c","b","a"};
 	    String[] reponse= {"a","b","c"};
-	    for (int i = 0; i < mots.length; i++){
+	    for(int i = 0; i < mots.length; i++){
 		lT.adjlisT(mots[i]);
-	    }    	
+	    }
 	    
 	    // verification
 	    verifie(lT, reponse);
@@ -147,6 +147,53 @@ public class TestListeTriee {
 	    verifie(lT, reponse);
 	}
 
+	public void test_07_supListeVide(){
+		ListeTriee lT = new ListeTriee(new ListeProf());
+		String[] reponse = new String[0];
+		lT.suplisT("a");
+
+		verifie(lT, reponse);
+	}
+
+	public void test_08_supLis1Element(){
+		ListeTriee lT = new ListeTriee(new ListeProf());
+		String[] mots= {"a"};
+		String[] reponse= new String[0];
+		for (int i = 0; i < mots.length; i++){
+			lT.adjlisT(mots[i]);
+		}
+		lT.suplisT("a");
+
+		// verification
+		verifie(lT, reponse);
+	}
+
+	public void test_09_supLisMilieu(){
+		ListeTriee lT = new ListeTriee(new ListeProf());
+		String[] mots = {"a","b","c","d","e"};
+		String[] reponse = {"a","b","d","e"};
+		for (int i = 0; i < mots.length; i++){
+			lT.adjlisT(mots[i]);
+		}
+		lT.suplisT("c");
+
+		// verification
+		verifie(lT, reponse);
+
+	}
+
+	public void test_10_suplistQueue(){
+		ListeTriee lT = new ListeTriee(new ListeProf());
+		String[] mots = {"a","b","c","d","e"};
+		String[] reponse = {"a","b","c","d"};
+		for (int i = 0; i < mots.length; i++){
+			lT.adjlisT(mots[i]);
+		}
+		lT.suplisT("e");
+
+		// verification
+		verifie(lT, reponse);
+	}
 
 
 
