@@ -55,5 +55,26 @@ public class Principale{
 	fichier.ouvrirFichier();
 	fichier.ecrireLigne("liste;operation;emplacement;duree");
 	fichier.fermerFichier();
+
+	//###################################################################
+// Ouverture du fichier
+		LectureFichier lf = new LectureFichier("noms10000.txt");
+		// lecture du fichier dans un tableau de String
+		String[] tab = lf.lireFichier();
+		// creation d'une liste chainee
+		ListeChainee lc = new ListeChainee(10000);
+		// creation d'une liste triee
+		ListeTriee lt = new ListeTriee(lc);
+		// ajout des lignes du fichier a la liste
+
+		for (int i = 0; i < tab.length; i ++) {
+			lt.adjlisT(tab[i]);
+		}
+		// demonstration
+		System.out.println(lt.toString());
+		// suppression d'un mot de la liste
+		lt.suplisT("DROUVOT");
+		// demonstration
+		System.out.println(lt.toString());
     }
 }
