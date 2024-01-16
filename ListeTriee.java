@@ -1,101 +1,80 @@
 /**
- * Classe ListeTriee
- * @author Étienne André
- * @since 2021-11-12
+ * Classe principale de la SAÉ
+ * @author Étienne André Sergueï Lenglet
+ * @since 2021-11-04
  *
  */
 
 
+public class Principale{
 
-public class ListeTriee{
-
-    // Attribut de liste sous-jacente
-    private Liste liste;
+    private static final String[] ELEMENTS_DE_DEBUT
+	= {"ABITEBOUL", "ADLEMAN", "AL-KINDI", "ALUR", "BERNERS-LEE",
+	"BOOLE", "BUCHI", "BUTLER", "CLARKE", "CURRY"};
+    private static final String[] ELEMENTS_DE_FIN
+	= {"RABIN", "RIVEST", "SHAMIR", "SIFAKIS", "TORVALDS",
+	"TURING", "ULLMAN", "VALIANT", "WIRTH", "YAO"};
     
-    public ListeTriee(Liste listevide){
-	// Affectation de la liste vide à l'attribut privé
-	liste = listevide;
-    }
-    
-    /**
-     * retourne la premiere place de la liste
-     * @return tete de liste
-     */
-    public int tete(){
-	return this.liste.tete();
-    }
+    // NOTE: pour fichier 10 000
+    // 	private static final String[] ELEMENTS_DE_DEBUT_SUPPR
+    // = {"ABBADI", "ABERGEL", "ALIAS", "ALIOUI", "AKKUS", "ALAZARD",
+    // "ALLA", "AIDARA", "ABRANTES", "AARAB"};
+    // NOTE: pour fichier 1 000
+    //private static final String[] ELEMENTS_DE_DEBUT_SUPPR
+    // = {"ABADIE", "ABDALLAH", "ABRAHAM", "ADAM", "AFONSO",
+    // "ALBERT", "ALEXANDRE", "ALI", "ALIX", "ALLAIN"};
+    // NOTE: pour fichier 10 000
+    //private static final String[] ELEMENTS_DE_FIN_SUPPR
+    // = {"WEIS", "ZANIN", "WERQUIN", "YAGOUBI", "WERNERT",
+    // "WAWRZYNIAK", "ZULIANI", "ZAIRE", "WAVRANT", "VILLAR"}; //
+    // NOTE: pour fichier 1 000
+    //private static final String[] ELEMENTS_DE_FIN_SUPPR
+    //= {"WEBER", "WEISS", "WINTERSTEIN", "WOLFF", "YANG",
+    //"YILDIRIM", "YILDIZ", "YILMAZ", "ZIEGLER", "ZIMMERMANN"}; //
 	
-    /**
-     * permet de connaitre la place suivante dans la liste
-     * @param p place en cours
-     * @return place derriere p dans la liste
-     */
-    public int suc(int p){
-	return this.liste.suc(p);
-    }
-    
-    /**
-     * retourne la valeur associee a la place p
-     * @param p place de la liste
-     * @return la valeur associee  p
-     */
-    public String val(int p){
-	//A COMPLETER
-	return this.liste.val(p);
-    }
- 
-    /**
-     * indique si la place p est a la fin de la liste ou non
-     * @param p place de la liste
-     * @return vrai si p est a la fin de la liste, faux sinon
-     */   
-    public boolean finliste(int p){
-	//A COMPLETER
-        return this.liste.finliste(p);
-    }
+    // Type des listes, peut etre utile pour factoriser les tests
+    private static final int CONTIGUE	       = 1;
+    private static final int CHAINEE	       = 2;
+    private static final int CHAINEE_PLIBRES   = 3;
 	
-    
-    /**
-     * ajoute un element au bon endroit dans la liste triee
-     * @param chaine element a inserer
-     */
-    public void adjlisT(String chaine){
-	//A COMPLETER
-        //Ajouter liste triée
-        //Si la liste est vide on met direct
-        //Si la comparaison retourne > 0 alors on continue d'avancer jusqu'à la fin de la liste
-        //Sinon si on arrive a < 0 alors on ajoute a -1
-            if(this.finliste(this.tete()) == true){
-            this.liste.adjlis(this.tete(), chaine);
-        }else{
-            int i = 0;
-            int precedent = 0;
-            while(chaine.compareTo(this.val(i)) > 0 && this.finliste(i) == false){
-                if(i <= this.tete()){
-                    precedent = i;
-                }
-                i = this.suc(i);
-
-
-            }
-            if(this.finliste(i) == true){
-                this.liste.adjlis(i,chaine);
-            }else {
-                this.liste.adjlis(precedent, chaine);
-            }
-        }
-    }
-	
-    /**
-     * permet de supprimer un element d'une liste. Supprime le premier element dont la valeur est egale a "chaine" ; ne fait rien si "chaine" n'appartient pas a la liste.
-     * @param chaine l'element a supprimer 
-     */
-    public void suplisT(String chaine){
-	//A COMPLETER
-	throw (new Error ("A compléter"));
+    // Exemple d'utilisation de LectureFichier et remplissage d'une liste
+    public static void remplir_liste(ListeTriee liste, String nom_fichier){
+	LectureFichier lf = new LectureFichier(nom_fichier);
+	// 		
+	String[] liste_noms = lf.lireFichier();
+	for (int i = 0; i < liste_noms.length; i++) {
+	    liste.adjlisT(liste_noms[i]);
+	}
     }
 		
-    public String toString(){
-	return liste.toString();
+    public static void main(String [] args){
+	System.out.println("Bienvenue !");
+
+	//Exemple d'utilisation de la classe EcritureFichier
+	EcritureFichier fichier = new EcritureFichier("resultats.csv");
+	fichier.ouvrirFichier();
+	fichier.ecrireLigne("liste;operation;emplacement;duree");
+	fichier.fermerFichier();
+
+	//###################################################################
+// Ouverture du fichier
+		LectureFichier lf = new LectureFichier("noms10000.txt");
+		// lecture du fichier dans un tableau de String
+		String[] tab = lf.lireFichier();
+		// creation d'une liste chainee
+		ListeChainee lc = new ListeChainee(10000);
+		// creation d'une liste triee
+		ListeTriee lt = new ListeTriee(lc);
+		// ajout des lignes du fichier a la liste
+
+		for (int i = 0; i < tab.length; i ++) {
+			lt.adjlisT(tab[i]);
+		}
+		// demonstration
+		System.out.println(lt.toString());
+		// suppression d'un mot de la liste
+		lt.suplisT("DROUVOT");
+		// demonstration
+		System.out.println(lt.toString());
     }
 }
