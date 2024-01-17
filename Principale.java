@@ -38,43 +38,48 @@ public class Principale{
     private static final int CHAINEE_PLIBRES   = 3;
 
 	public static String tempListe(int code, String[] tab,char operation,int taille, String placement) {
-		ListeTriee lt;
+		double somme = 0;
 		String typeListe = "";
-		switch (code) {
-			case 1:
-				ListeContigue listeCon = new ListeContigue(taille);
-				lt = new ListeTriee(listeCon);
-				typeListe = "Contigue";
-				break;
-			case 2:
-				ListeChainee listeChainee = new ListeChainee(taille);
-				lt = new ListeTriee(listeChainee);
-				typeListe = "Chainee";
-				break;
-			default:
-				ListeChaineePlacesLibres listeChaineePL = new ListeChaineePlacesLibres(taille);
-				lt = new ListeTriee(listeChaineePL);
-				typeListe = "Chainee avec place libre";
-		}
-		remplir_liste(lt, "noms10000.txt");
-		long date_debut;
-		long date_fin;
-		if (operation == '-') {
-			date_debut = System.nanoTime();
-			for (int i = 0; i < 10; i++) {
-				lt.suplisT(tab[i]);
+		for(int j = 0; j < 100; j++){
+			ListeTriee lt;
+			switch (code) {
+				case 1:
+					ListeContigue listeCon = new ListeContigue(taille);
+					lt = new ListeTriee(listeCon);
+					typeListe = "Contigue";
+					break;
+				case 2:
+					ListeChainee listeChainee = new ListeChainee(taille);
+					lt = new ListeTriee(listeChainee);
+					typeListe = "Chainee";
+					break;
+				default:
+					ListeChaineePlacesLibres listeChaineePL = new ListeChaineePlacesLibres(taille);
+					lt = new ListeTriee(listeChaineePL);
+					typeListe = "Chainee avec place libre";
 			}
-			date_fin = System.nanoTime();
-		} else {
-			date_debut = System.nanoTime();
-			for (int i = 0; i < 10; i++) {
-				lt.adjlisT(tab[i]);
-			}
-			date_fin = System.nanoTime();
+			remplir_liste(lt, "noms10000.txt");
+			long date_debut;
+			long date_fin;
+			if (operation == '-') {
+				date_debut = System.nanoTime();
+				for (int i = 0; i < 10; i++) {
+					lt.suplisT(tab[i]);
+				}
+				date_fin = System.nanoTime();
+			} else {
+				date_debut = System.nanoTime();
+				for (int i = 0; i < 10; i++) {
+					lt.adjlisT(tab[i]);
+				}
+				date_fin = System.nanoTime();
 
+			}
+			long duree = date_fin - date_debut;
+			somme = somme + duree;
 		}
-		long duree = date_fin - date_debut;
-		return typeListe + ";" + operation + ";" + placement + ";" + duree;
+		double moyenne = somme / 100;
+		return typeListe + ";" + operation + ";" + placement + ";" + moyenne;
 	}
 
 
@@ -110,7 +115,7 @@ public class Principale{
 
 		//Question 7
 		fichier.ouvrirFichier();
-		fichier.ecrireLigne("Type de liste; Operation; Placement; Duree");
+		fichier.ecrireLigne("Type de liste; Operation; Placement; Duree moyenne");
 		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
 		fichier.ecrireLigne(tempListe(2,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
 		fichier.ecrireLigne(tempListe(3,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
