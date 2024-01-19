@@ -79,7 +79,7 @@ public class Principale{
 			somme = somme + duree;
 		}
 		double moyenne = somme / 100;
-		return typeListe + ";" + operation + ";" + placement + ";" + moyenne;
+		return ";"+typeListe + ";" + operation + ";" + placement + ";" + moyenne;
 	}
 
 
@@ -103,7 +103,7 @@ public class Principale{
 	fichier.fermerFichier();
 
 	//###################################################################
-		// Ouverture du fichier
+		//Ouverture du fichier
 		//LectureFichier lf = new LectureFichier("noms10000.txt");
 		// lecture du fichier dans un tableau de String
 		//String[] tab = lf.lireFichier();
@@ -115,30 +115,29 @@ public class Principale{
 
 		//Question 7
 		fichier.ouvrirFichier();
-		fichier.ecrireLigne("Type de liste; Operation; Placement; Duree moyenne");
+		fichier.ecrireLigne(";Type de liste; Operation; Placement; Duree moyenne");
+		fichier.ecrireLigne("QUESTION 7");
+
 		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
 		fichier.ecrireLigne(tempListe(2,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
 		fichier.ecrireLigne(tempListe(3,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
 
+		fichier.ecrireLigne("QUESTION 8");
+		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_FIN,'+',10010,"fin"));
+		fichier.ecrireLigne(tempListe(2,ELEMENTS_DE_FIN,'+',10010,"fin"));
+		fichier.ecrireLigne(tempListe(3,ELEMENTS_DE_FIN,'+',10010,"fin"));
 
+		fichier.ecrireLigne("QUESTION 10");
+		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
+		fichier.ecrireLigne(tempListe(2,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
+		fichier.ecrireLigne(tempListe(3,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
+
+		fichier.ecrireLigne("QUESTION 11");
+		fichier.ecrireLigne(tempListe(1,ELEMENTS_DE_FIN,'-',10010,"fin"));
+		fichier.ecrireLigne(tempListe(2,ELEMENTS_DE_FIN,'-',10010,"fin"));
+		fichier.ecrireLigne(tempListe(3,ELEMENTS_DE_FIN,'-',10010,"fin"));
 
 		fichier.fermerFichier();
-		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
-		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'+',10010,"debut"));
 
-		//Question 8
-		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'+',10010,"fin"));
-		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'+',10010,"fin"));
-		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'+',10010,"fin"));
-
-		//Question 9
-		System.out.println(tempListe(1,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
-		System.out.println(tempListe(2,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
-		System.out.println(tempListe(3,ELEMENTS_DE_DEBUT,'-',10010,"debut"));
-
-		//Question 10
-		System.out.println(tempListe(1,ELEMENTS_DE_FIN,'-',10010,"fin"));
-		System.out.println(tempListe(2,ELEMENTS_DE_FIN,'-',10010,"fin"));
-		System.out.println(tempListe(3,ELEMENTS_DE_FIN,'-',10010,"fin"));
 	}
 }
